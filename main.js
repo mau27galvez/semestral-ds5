@@ -1,6 +1,5 @@
 window.onload = function() {
     const header = document.getElementById("header");
-    console.log(header);
     header.innerHTML = `
         <nav class="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
