@@ -35,8 +35,8 @@
                     ">
                         <template x-for="idol in idols">
                             <li class="relative">
-                                <img class="aspect-[5/6] w-full rounded-2xl object-cover" x-bind:src="idol.photo"
-                                    alt="">
+                                <img class="aspect-[5/6] w-full rounded-2xl object-cover object-top"
+                                    x-bind:src="idol.photo" alt="">
                                 <h3 class="mt-6 font-semibold tracking-tight text-gray-900 text-lg/8"
                                     x-text="idol.name"></h3>
                                 <p class="text-gray-600 text-base/7" x-text="idol.group?.name"></p>
