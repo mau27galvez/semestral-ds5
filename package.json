@@ -10,9 +10,10 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.15",
-    "vite": "^5.4.10"
+    "vite": "^5.4.11"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.9",
     "alpinejs": "^3.14.3"
   }
 }

@@ -23,7 +23,7 @@ window.onload = function() {
                 <a href="./about-us" class="font-semibold text-gray-900 text-sm/6">About us</a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
-                <a href="#" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
+                <a href="./login" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
             </div>
         </nav>
                 `;
