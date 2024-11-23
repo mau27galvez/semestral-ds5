@@ -17,9 +17,10 @@ window.onload = function() {
                 </a>
             </div>
             <div class="flex gap-x-4 lg:gap-x-12">
-                <a href="./index.html" class="font-semibold text-gray-900 text-sm/6">Home</a>
-                <a href="./groups.html" class="font-semibold text-gray-900 text-sm/6">Groups</a>
-                <a href="#" class="font-semibold text-gray-900 text-sm/6">About us</a>
+                <a href="./index" class="font-semibold text-gray-900 text-sm/6">Home</a>
+                <a href="./groups" class="font-semibold text-gray-900 text-sm/6">Groups</a>
+                <a href="./idols" class="font-semibold text-gray-900 text-sm/6">Idols</a>
+                <a href="./about-us" class="font-semibold text-gray-900 text-sm/6">About us</a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
                 <a href="#" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
@@ -29,9 +30,10 @@ window.onload = function() {
     footer.innerHTML = `
         <div class="px-6 py-20 mx-auto overflow-hidden max-w-7xl sm:py-24 lg:px-8">
             <nav class="flex flex-wrap justify-center -mb-6 gap-x-12 gap-y-3 text-sm/6 pb-8" aria-label="Footer">
-                <a href="./index.html" class="text-gray-600 hover:text-gray-900">Home</a>
-                <a href="./groups.html" class="text-gray-600 hover:text-gray-900">Groups</a>
-                <a href="#" class="text-gray-600 hover:text-gray-900">About us</a>
+                <a href="./index" class="text-gray-600 hover:text-gray-900">Home</a>
+                <a href="./groups" class="text-gray-600 hover:text-gray-900">Groups</a>
+                <a href="./idols" class="text-gray-600 hover:text-gray-900">Idols</a>
+                <a href="./about-us" class="text-gray-600 hover:text-gray-900">About us</a>
             </nav>
             <p class="mt-10 text-center text-gray-600 text-sm/6">&copy; 2024 La Tumba Panamá, Inc. All rights reserved.</p>
         </div>
