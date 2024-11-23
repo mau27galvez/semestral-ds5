@@ -13,29 +13,11 @@
   <div id="app">
     <div class="bg-white">
       <!-- Header -->
-      <header class="absolute inset-x-0 top-0 z-50">
-        <nav class="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8" aria-label="Global">
-          <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
-              <img class="w-auto h-8"
-                src="https://cdn.discordapp.com/attachments/1298432866371244135/1309704751075692605/Untitled_logo_4_free-file-removebg-preview.png?ex=67428d19&is=67413b99&hm=3779381cc57e113b2e0fa7afc8f4f43d699fd069e7825100ce60e3a7cb8de503&"
-                alt="">
-            </a>
-          </div>
-          <div class="flex gap-x-4 lg:gap-x-12">
-            <a href="./index" class="font-semibold text-gray-900 text-sm/6">Home</a>
-            <a href="./groups" class="font-semibold text-gray-900 text-sm/6">Groups</a>
-            <a href="./aboutUs" class="font-semibold text-gray-900 text-sm/6">About us</a>
-          </div>
-          <div class="lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
-          </div>
-        </nav>
+      <header id="header" class="mb-14">
       </header>
 
       <!-- Groups section -->
-      <div class="py-24 bg-white sm:py-32">
+      <main>
         <div class="px-6 mx-auto max-w-7xl lg:px-8">
           <div class="max-w-2xl mx-auto sm:text-center">
             <h2 class="font-semibold tracking-tight text-gray-900 text-34l text-balance sm:text-5xl">About us</h2>
@@ -111,8 +93,15 @@
             <!-- More people... -->
           </ul>
         </div>
-      </div>
+      </main>
+
+      <!-- Footer -->
+      <footer id="footer" class="mt-16 sm:mt-32">
+      </footer>
     </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
 </body>
 
 </html>
