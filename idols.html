@@ -24,31 +24,22 @@
                     </div>
                     <ul role="list"
                         class="grid max-w-2xl grid-cols-1 mx-auto mt-20 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
-                        x-data="{
-                        idols: [],
-                        groups: [],
-                        async init() {
-                            const [idolsResponse, groupsResponse] = await Promise.all([
-                                fetch('http://localhost:5123/idol'),
-                                fetch('http://localhost:5123/group')
-                            ]);
+                        x-data="{ idols: [], groups: [] }" x-init="
+                            idols = await (await  fetch('http://localhost:5123/idol')).json();
+                            groups = await (await  fetch('http://localhost:5123/group')).json();
 
-                            this.idols = await idolsResponse.json();
-                            this.groups = await groupsResponse.json();
-
-                            this.idols = this.idols.map(idol => ({
+                            idols = idols.map(idol => ({
                                 ...idol,
-                                group: this.groups.find(group => group.id === idol.groupId)
+                                group: groups.find(group => group.id === idol.groupId)
                             }));
-                        }
-                    }">
+                    ">
                         <template x-for="idol in idols">
                             <li class="relative">
                                 <img class="aspect-[5/6] w-full rounded-2xl object-cover" x-bind:src="idol.photo"
                                     alt="">
                                 <h3 class="mt-6 font-semibold tracking-tight text-gray-900 text-lg/8"
                                     x-text="idol.name"></h3>
-                                <p class="text-gray-600 text-base/7" x-text="idol.group.name"></p>
+                                <p class="text-gray-600 text-base/7" x-text="idol.group?.name"></p>
                                 <a x-bind:href="`/idol?idolId=${idol.id}`">
                                     <span class="absolute inset-0"></span>
                                 </a>
