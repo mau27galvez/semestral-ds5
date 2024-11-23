@@ -23,31 +23,36 @@
                             know your favorite idols 😍</h2>
                     </div>
                     <ul role="list"
-                        class="grid max-w-2xl grid-cols-1 mx-auto mt-20 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                    class="grid max-w-2xl grid-cols-1 mx-auto mt-20 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                    x-data="{ 
+                        idols: [],
+                        groups: [],
+                        async init() {
+                            const [idolsResponse, groupsResponse] = await Promise.all([
+                                fetch('http://localhost:5123/idol'),
+                                fetch('http://localhost:5123/group')
+                            ]);
+                            
+                            this.idols = await idolsResponse.json();
+                            this.groups = await groupsResponse.json();
+                            
+                            this.idols = this.idols.map(idol => ({
+                                ...idol,
+                                group: this.groups.find(group => group.id === idol.groupId)
+                            }));
+                        }
+                    }">
+                    <template x-for="idol in idols">
                         <li>
                             <img class="aspect-[5/6] w-full rounded-2xl object-cover"
-                                src="https://upload.wikimedia.org/wikipedia/commons/7/70/20230905_Minji_%28NewJeans%29.jpg"
+                                x-bind:src="idol.photo"
                                 alt="">
-                            <h3 class="mt-6 font-semibold tracking-tight text-gray-900 text-lg/8">Minji</h3>
-                            <p class="text-gray-600 text-base/7">NewJeans</p>
+                            <h3 class="mt-6 font-semibold tracking-tight text-gray-900 text-lg/8" x-text="idol.name"></h3>
+                            <p class="text-gray-600 text-base/7" x-text="idol.group?.name || 'Solo Artist'"></p>
                         </li>
-                        <li>
-                            <img class="aspect-[5/6] w-full rounded-2xl object-cover"
-                                src="https://upload.wikimedia.org/wikipedia/commons/7/70/20230905_Minji_%28NewJeans%29.jpg"
-                                alt="">
-                            <h3 class="mt-6 font-semibold tracking-tight text-gray-900 text-lg/8">Minji</h3>
-                            <p class="text-gray-600 text-base/7">NewJeans</p>
-                        </li>
-                        <li>
-                            <img class="aspect-[5/6] w-full rounded-2xl object-cover"
-                                src="https://upload.wikimedia.org/wikipedia/commons/7/70/20230905_Minji_%28NewJeans%29.jpg"
-                                alt="">
-                            <h3 class="mt-6 font-semibold tracking-tight text-gray-900 text-lg/8">Minji</h3>
-                            <p class="text-gray-600 text-base/7">NewJeans</p>
-                        </li>
+                    </template>
+                </ul>
 
-                        <!-- More idols... -->
-                    </ul>
                 </div>
             </main>
 
