@@ -13,7 +13,7 @@ window.onload = function() {
                 <a href="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Your Company</span>
                     <img class="w-auto h-8"
-                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="">
+                        src="https://cdn.discordapp.com/attachments/1298432866371244135/1309723987982418032/Untitled_logo_4_free-file-removebg-preview.png?ex=67429f04&is=67414d84&hm=8176aed32a863c62257c589df0d59b76710460748d2153985123533326d31aa2&" alt="">
                 </a>
             </div>
             <div class="flex gap-x-4 lg:gap-x-12">
@@ -26,9 +26,11 @@ window.onload = function() {
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
                 </a>
+                 <a href="https://www.google.com" target="_blank" style="cursor: pointer;">Facebook</a>
+                 <a href="https://www.google.com" target="_blank" style="cursor: pointer;">Instagram</a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
-                <a href="#" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
+                <a href="./login" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
             </div>
         </nav>
                 `;
