@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./dist/output.css" rel="stylesheet">
+    <title>K-Wiki</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="bg-white">
+            <!-- Header -->
+            <header id="header" class="mb-14">
+            </header>
+
+            <main>
+                <div class="px-6 mx-auto max-w-7xl lg:px-8">
+                    <div class="grid items-start max-w-2xl grid-cols-1 mx-auto gap-x-8 gap-y-8 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2"
+                        x-data="{idol: {}}" x-init="
+                        const params = new Proxy(new URLSearchParams(window.location.search), { get: (searchParams, prop) => searchParams.get(prop) });
+                        console.log(`http://localhost:5123/idol/${params.idolId}`);
+                        idol = await (await fetch(`http://localhost:5123/idol/${params.idolId}`)).json();
+                        console.log(idol);
+                    ">
+                        <div class="lg:pr-4">
+                            <div class="overflow-hidden shadow-2xl rounded-3xl lg:max-w-lg">
+                                <img class="aspect-[5/6] object-cover object-top" x-bind:src="idol.photo" alt="">
+                            </div>
+                        </div>
+                        <div class="text-gray-700 text-base/7 lg:max-w-lg">
+                            <p class="font-semibold text-indigo-600 text-base/7" x-text="idol.realName"></p>
+                            <h1 class="mt-2 text-4xl font-semibold tracking-tight text-gray-900 text-pretty sm:text-5xl"
+                                x-text="idol.name"></h1>
+                            <div class="max-w-xl">
+                                <p class="mt-6">Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget
+                                    risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor
+                                    praesent donec est. Odio penatibus risus viverra tellus varius sit neque
+                                    erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget
+                                    risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
+                                <p class="mt-8">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis
+                                    odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam
+                                    tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
+                                    adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer
+                                    orci.</p>
+                                <p class="mt-8">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis
+                                    odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam
+                                    tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
+                                    adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer
+                                    orci.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer id="footer" class="mt-16 sm:mt-32">
+            </footer>
+        </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
