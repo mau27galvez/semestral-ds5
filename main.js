@@ -19,6 +19,7 @@ window.onload = function() {
             <div class="flex gap-x-4 lg:gap-x-12">
                 <a href="./index" class="font-semibold text-gray-900 text-sm/6">Home</a>
                 <a href="./groups" class="font-semibold text-gray-900 text-sm/6">Groups</a>
+                <a href="./idols" class="font-semibold text-gray-900 text-sm/6">Idols</a>
                 <a href="#" class="font-semibold text-gray-900 text-sm/6">About us</a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
@@ -31,6 +32,7 @@ window.onload = function() {
             <nav class="flex flex-wrap justify-center -mb-6 gap-x-12 gap-y-3 text-sm/6 pb-8" aria-label="Footer">
                 <a href="./index" class="text-gray-600 hover:text-gray-900">Home</a>
                 <a href="./groups" class="text-gray-600 hover:text-gray-900">Groups</a>
+                <a href="./idols" class="text-gray-600 hover:text-gray-900">Idols</a>
                 <a href="#" class="text-gray-600 hover:text-gray-900">About us</a>
             </nav>
             <p class="mt-10 text-center text-gray-600 text-sm/6">&copy; 2024 La Tumba Panamá, Inc. All rights reserved.</p>
