@@ -38,7 +38,7 @@
                   x-text="group.name">
                 </div>
                 <h3 class="mt-3 text-white text-lg/6">
-                  <a href="#">
+                  <a x-bind:href="`/group?groupId=${group.id}`">
                     <span class="absolute inset-0"></span>
                     <span x-text="group.description.substring(0, 197) + '...'">
                     </span>
