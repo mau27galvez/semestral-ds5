@@ -21,6 +21,11 @@ window.onload = function() {
                 <a href="./groups" class="font-semibold text-gray-900 text-sm/6">Groups</a>
                 <a href="./idols" class="font-semibold text-gray-900 text-sm/6">Idols</a>
                 <a href="./about-us" class="font-semibold text-gray-900 text-sm/6">About us</a>
+                <a href="https://www.google.com" target="_blank" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
                 <a href="#" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
