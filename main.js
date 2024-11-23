@@ -1,3 +1,9 @@
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
 window.onload = function() {
     const header = document.getElementById("header");
     header.innerHTML = `
