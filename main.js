@@ -10,6 +10,25 @@ Alpine.store('auth', {
     isAuth: isAuth,
     refreshToken: refreshToken,
     accessToken: accessToken,
+    async login(email, password) {
+        const req = await fetch('http://localhost:5123/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        if (!req.ok) {
+            alert('Error');
+            return;
+        }
+
+        const res = await req.json();
+
+        localStorage.setItem('accessToken', res.accessToken);
+        localStorage.setItem('refreshToken', res.refreshToken);
+    },
     logout() {
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('accessToken');

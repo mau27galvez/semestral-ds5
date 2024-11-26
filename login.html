@@ -23,23 +23,7 @@
                             <h2 class="mt-10 font-bold tracking-tight text-center text-gray-900 text-2xl/9">Login</h2>
                         </div>
                         <form class="space-y-6" x-data="{ email: '', password: '' }" x-on:submit.prevent="
-                            const req = await fetch('http://localhost:5123/login', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({ email, password }),
-                            });
-
-                            if (!req.ok) {
-                                alert('Error');
-                                return;
-                            }
-
-                            const res = await req.json();
-
-                            localStorage.setItem('accessToken', res.accessToken);
-                            localStorage.setItem('refreshToken', res.refreshToken);
+                            await $store.auth.login(email, password);
                             window.location.href = '/';
                         ">
                             <div class="relative -space-y-px rounded-md shadow-sm">
