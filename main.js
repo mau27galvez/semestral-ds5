@@ -64,7 +64,7 @@ Alpine.store('auth', {
 
         const data = await req.json();
         return data.email.split('@')[0];
-    }
+    },
 });
 
 Alpine.store('groups', {
@@ -113,7 +113,16 @@ Alpine.store('groups', {
         const data = await req.json();
 
         return data;
-    }
+    },
+    async deleteComment(commentId) {
+        const req = await fetch(`http://localhost:5123/comment/${commentId}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${Alpine.store("auth").accessToken}`
+            }
+        });
+    },
 });
 
 Alpine.start();
