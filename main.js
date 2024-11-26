@@ -5,6 +5,7 @@ window.Alpine = Alpine;
 const refreshToken = localStorage.getItem('refreshToken');
 const accessToken = localStorage.getItem('accessToken');
 const isAuth = !!refreshToken;
+
 Alpine.store('auth', {
     isAuth: isAuth,
     refreshToken: refreshToken,
@@ -17,7 +18,7 @@ Alpine.store('auth', {
         this.accessToken = null;
     },
     async refreshToken() {
-        const req = await fetch("http://localhost:5123/auth/refresh", {
+        const req = await fetch("http://localhost:5123/refresh", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -29,6 +30,7 @@ Alpine.store('auth', {
 
         if (req.status === 401) {
             this.logout();
+            return;
         }
 
         const data = await req.json();
@@ -54,13 +56,40 @@ Alpine.store('auth', {
                     "Authorization": `Bearer ${this.accessToken}`
                 }
             });
+
+            if (req.status === 401) {
+                return null;
+            }
         }
 
         const data = await req.json();
         return data.email.split('@')[0];
     }
 });
-Alpine.store("comments", {
+
+Alpine.store('groups', {
+    async getGroups() {
+        const req = await fetch("http://localhost:5123/group", {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        const data = await req.json();
+
+        return data;
+    },
+    async getGroup(id) {
+        const req = await fetch(`http://localhost:5123/group/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        const data = await req.json();
+
+        return data;
+    },
 });
 
 Alpine.start();
