@@ -2,6 +2,22 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
+const refreshToken = localStorage.getItem('refreshToken');
+const accessToken = localStorage.getItem('accessToken');
+const isAuth = !!refreshToken;
+Alpine.store('auth', {
+    isAuth: isAuth,
+    refreshToken: refreshToken,
+    accessToken: accessToken,
+    logout() {
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
+        this.isAuth = false;
+        this.refreshToken = null;
+        this.accessToken = null;
+    }
+});
+
 Alpine.start();
 
 window.onload = function() {
@@ -26,11 +42,12 @@ window.onload = function() {
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
                 </a>
-                 <a href="https://www.google.com" target="_blank" style="cursor: pointer;">Facebook</a>
-                 <a href="https://www.google.com" target="_blank" style="cursor: pointer;">Instagram</a>
+                <a href="https://www.google.com" target="_blank" style="cursor: pointer;">Facebook</a>
+                <a href="https://www.google.com" target="_blank" style="cursor: pointer;">Instagram</a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
-                <a href="./login" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
+                <a href="./login" x-show="!$store.auth.isAuth" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
+                <button x-show="$store.auth.isAuth" x-on:click="$store.auth.logout()" class="font-semibold text-gray-900 text-sm/6">Log out<span aria-hidden="true">&rarr;</span></button>
             </div>
         </nav>
                 `;
