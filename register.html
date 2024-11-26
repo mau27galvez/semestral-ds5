@@ -24,21 +24,7 @@
                             </h2>
                         </div>
                         <form class="space-y-6" x-data="{ email: '', password: '' }" x-on:submit.prevent="
-                            const response = await fetch('http://localhost:5123/register', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({ email, password }),
-                            });
-
-                            if (response.ok) {
-                                window.location.href = '/';
-                            } else {
-                                alert('Error');
-                            }
-
-                            console.log(await response.body);
+                            await $store.auth.register(email, password);
                         ">
                             <div class="relative -space-y-px rounded-md shadow-sm">
                                 <div

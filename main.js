@@ -20,7 +20,7 @@ Alpine.store('auth', {
         });
 
         if (!req.ok) {
-            alert('Error');
+            alert('Wrong credentials');
             return;
         }
 
@@ -28,6 +28,22 @@ Alpine.store('auth', {
 
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('refreshToken', res.refreshToken);
+        window.location.href = '/';
+    },
+    async register(email, password) {
+        const response = await fetch('http://localhost:5123/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) {
+            alert('Wrong credentials');
+        }
+
+        window.location.href = '/login';
     },
     logout() {
         localStorage.removeItem('refreshToken');

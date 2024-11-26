@@ -24,7 +24,6 @@
                         </div>
                         <form class="space-y-6" x-data="{ email: '', password: '' }" x-on:submit.prevent="
                             await $store.auth.login(email, password);
-                            window.location.href = '/';
                         ">
                             <div class="relative -space-y-px rounded-md shadow-sm">
                                 <div
