@@ -44,7 +44,7 @@
                         </div>
                         <div x-data="{ comments: [] }" x-init="
                             const params = new Proxy(new URLSearchParams(window.location.search), { get: (searchParams, prop) => searchParams.get(prop) });
-                            comments = await (await fetch(`http://localhost:5123/group/${params.groupId}/comment`)).json();
+                            comments = await $store.groups.getCommentsByGroup(params.groupId);
                         " class="lg:max-w-lg">
                             <ul role="list" class="space-y-6">
                                 <template x-for="(comment, index) in comments" :key="comment.id">
@@ -81,14 +81,19 @@
                                     <span class="font-medium text-white"
                                         x-text="(await $store.auth.getCurrentUser())[0].toUpperCase()"></span>
                                 </span>
-                                <form class="relative flex-auto" x-on:submit.prevent="">
+                                <form class="relative flex-auto" x-data="{ content: '' }" x-on:submit.prevent="
+                                        await $store.groups.postComment(group.id, content);
+                                        content = '';
+                                        console.log(comments);
+                                        comments = [...(await $store.groups.getCommentsByGroup(group.id))];
+                                        console.log(comments);
+                                    ">
                                     <div
                                         class="pb-12 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
                                         <label for="comment" class="sr-only">Add your comment</label>
-                                        <textarea x-bind:disabled="$store.auth.isAuth" rows="2" name="comment"
-                                            id="comment"
+                                        <textarea rows="2" name="comment" id="comment"
                                             class="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
-                                            placeholder="Add your comment..."></textarea>
+                                            placeholder="Add your comment..." x-model="content"></textarea>
                                     </div>
 
                                     <div class="absolute inset-x-0 bottom-0 flex justify-end py-2 pl-3 pr-2">

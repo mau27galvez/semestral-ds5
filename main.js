@@ -90,6 +90,30 @@ Alpine.store('groups', {
 
         return data;
     },
+    async postComment(groupId, comment) {
+        const req = await fetch(`http://localhost:5123/comment`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${Alpine.store("auth").accessToken}`
+            },
+            body: JSON.stringify({
+                groupId: groupId,
+                content: comment
+            })
+        });
+    },
+    async getCommentsByGroup(groupId) {
+        const req = await fetch(`http://localhost:5123/group/${groupId}/comment`, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        const data = await req.json();
+
+        return data;
+    }
 });
 
 Alpine.start();
