@@ -15,6 +15,50 @@ Alpine.store('auth', {
         this.isAuth = false;
         this.refreshToken = null;
         this.accessToken = null;
+    },
+    async refreshToken() {
+        const req = await fetch("http://localhost:5123/auth/refresh", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                refreshToken: this.refreshToken
+            })
+        });
+
+        if (req.status === 401) {
+            this.logout();
+        }
+
+        const data = await req.json();
+        this.accessToken = data.accessToken;
+        localStorage.setItem('accessToken', data.accessToken);
+    },
+    async getCurrentUser() {
+        let req;
+        req = await fetch("http://localhost:5123/manage/info", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this.accessToken}`
+            }
+        });
+
+        if (req.status === 401) {
+            this.refreshToken();
+
+            req = await fetch("http://localhost:5123/manage/info", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${this.accessToken}`
+                }
+            });
+        }
+
+        const data = await req.json();
+        return {username: data.email.split('@')[0]};
     }
 });
 
