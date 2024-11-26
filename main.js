@@ -2,6 +2,96 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
+const refreshToken = localStorage.getItem('refreshToken');
+const accessToken = localStorage.getItem('accessToken');
+const isAuth = !!refreshToken;
+
+Alpine.store('auth', {
+    isAuth: isAuth,
+    refreshToken: refreshToken,
+    accessToken: accessToken,
+    logout() {
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
+        this.isAuth = false;
+        this.refreshToken = null;
+        this.accessToken = null;
+    },
+    async refreshToken() {
+        const req = await fetch("http://localhost:5123/refresh", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                refreshToken: this.refreshToken
+            })
+        });
+
+        if (req.status === 401) {
+            this.logout();
+            return;
+        }
+
+        const data = await req.json();
+        this.accessToken = data.accessToken;
+        localStorage.setItem('accessToken', data.accessToken);
+    },
+    async getCurrentUser() {
+        let req;
+        req = await fetch("http://localhost:5123/manage/info", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this.accessToken}`
+            }
+        });
+
+        if (req.status === 401) {
+            this.refreshToken();
+
+            req = await fetch("http://localhost:5123/manage/info", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${this.accessToken}`
+                }
+            });
+
+            if (req.status === 401) {
+                return null;
+            }
+        }
+
+        const data = await req.json();
+        return data.email.split('@')[0];
+    }
+});
+
+Alpine.store('groups', {
+    async getGroups() {
+        const req = await fetch("http://localhost:5123/group", {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        const data = await req.json();
+
+        return data;
+    },
+    async getGroup(id) {
+        const req = await fetch(`http://localhost:5123/group/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        const data = await req.json();
+
+        return data;
+    },
+});
+
 Alpine.start();
 
 window.onload = function() {
@@ -31,7 +121,8 @@ window.onload = function() {
                 </a>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
-                <a href="./login" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
+                <a href="./login" x-show="!$store.auth.isAuth" class="font-semibold text-gray-900 text-sm/6">Log in <span aria-hidden="true">&rarr;</span></a>
+                <button x-show="$store.auth.isAuth" x-on:click="$store.auth.logout()" class="font-semibold text-gray-900 text-sm/6">Log out<span aria-hidden="true">&rarr;</span></button>
             </div>
         </nav>
                 `;
