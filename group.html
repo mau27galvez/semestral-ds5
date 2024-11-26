@@ -40,7 +40,7 @@
                                     risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
                             </div>
                         </div>
-                        <div x-data="{ comments: [] }" x-init="
+                        <div x-data="{ comments: [], editingComment: null, content: '' }" x-init="
                             const params = new Proxy(new URLSearchParams(window.location.search), { get: (searchParams, prop) => searchParams.get(prop) });
                             comments = await $store.groups.getCommentsByGroup(params.groupId);
                         " class="lg:max-w-lg">
@@ -63,8 +63,22 @@
                                                         x-text="comment.authorUsername"></span> commented
                                                 </div>
                                                 <div class="flex items-center gap-x-2 py-0.5 text-xs/5 text-gray-500">
+                                                    <p x-show="!!comment.updatedAt">(edited)</p>
                                                     <time x-bind:datetime="comment.createdAt" class="flex-none"
                                                         x-text="(new Date(comment.createdAt).toLocaleDateString())"></time>
+                                                    <button
+                                                        x-show="(await $store.auth.getCurrentUser()) === comment.authorUsername"
+                                                        x-on:click="
+                                                        editingComment = {...comment}
+                                                        content = comment.content;
+                                                        ">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="size-4 hover:text-indigo-600">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                        </svg>
+                                                    </button>
                                                     <button
                                                         x-show="(await $store.auth.getCurrentUser()) === comment.authorUsername"
                                                         x-on:click="
@@ -93,12 +107,16 @@
                                     <span class="font-medium text-white"
                                         x-text="(await $store.auth.getCurrentUser())[0].toUpperCase()"></span>
                                 </span>
-                                <form class="relative flex-auto" x-data="{ content: '' }" x-on:submit.prevent="
+                                <form class="relative flex-auto" x-on:submit.prevent="
+                                    if (!editingComment) {
                                         await $store.groups.postComment(group.id, content);
-                                        content = '';
-                                        console.log(comments);
-                                        comments = [...(await $store.groups.getCommentsByGroup(group.id))];
-                                        console.log(comments);
+                                    } else {
+                                        await $store.groups.editComment(editingComment.id, content);
+                                        editingComment = null;
+                                    }
+
+                                    content = '';
+                                    comments = [...(await $store.groups.getCommentsByGroup(group.id))];
                                     ">
                                     <div
                                         class="pb-12 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
@@ -108,9 +126,14 @@
                                             placeholder="Add your comment..." x-model="content"></textarea>
                                     </div>
 
-                                    <div class="absolute inset-x-0 bottom-0 flex justify-end py-2 pl-3 pr-2">
-                                        <button type="submit"
+                                    <div class="absolute inset-x-0 bottom-0 flex justify-end py-2 pl-3 pr-2 gap-x-4">
+                                        <button x-show="!editingComment" type="submit"
                                             class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Comment</button>
+                                        <button x-show="!!editingComment" type="button"
+                                            x-on:click="editingComment = null; content = ''"
+                                            class="rounded-md bg-red-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-600">Cancel</button>
+                                        <button x-show="!!editingComment" type="submit"
+                                            class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Edit</button>
                                     </div>
                                 </form>
                             </div>

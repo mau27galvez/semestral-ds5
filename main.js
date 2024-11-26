@@ -149,6 +149,18 @@ Alpine.store('groups', {
 
         return data;
     },
+    async editComment(commentId, comment) {
+        const req = await fetch(`http://localhost:5123/comment/${commentId}`, {
+            method: "patch",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${Alpine.store("auth").accessToken}`
+            },
+            body: JSON.stringify({
+                content: comment
+            }),
+        });
+    },
     async deleteComment(commentId) {
         const req = await fetch(`http://localhost:5123/comment/${commentId}`, {
             method: "delete",
