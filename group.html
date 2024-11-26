@@ -23,7 +23,7 @@
                         const params = new Proxy(new URLSearchParams(window.location.search), { get: (searchParams, prop) => searchParams.get(prop) });
                         group = await $store.groups.getGroup(params.groupId);
                     ">
-                        <div class="lg:pr-4">
+                        <div class="row-span-2 lg:pr-4">
                             <div class="overflow-hidden shadow-2xl rounded-3xl lg:max-w-lg">
                                 <img class="object-cover object-top" x-bind:src="group.photo" alt="">
                             </div>
@@ -39,8 +39,6 @@
                                     erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget
                                     risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
                             </div>
-                        </div>
-                        <div class="hidden lg:block">
                         </div>
                         <div x-data="{ comments: [] }" x-init="
                             const params = new Proxy(new URLSearchParams(window.location.search), { get: (searchParams, prop) => searchParams.get(prop) });
