@@ -38,7 +38,6 @@ Alpine.store('auth', {
     async getCurrentUser() {
         let req;
         req = await fetch("http://localhost:5123/manage/info", {
-            method: "post",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${this.accessToken}`
@@ -58,8 +57,10 @@ Alpine.store('auth', {
         }
 
         const data = await req.json();
-        return {username: data.email.split('@')[0]};
+        return data.email.split('@')[0];
     }
+});
+Alpine.store("comments", {
 });
 
 Alpine.start();
